@@ -48,7 +48,7 @@ static fb* frame;
 void draw_ball(fb* frame){
     for (int i = -BALL_RADIUS;i<BALL_RADIUS;i++){
         for (int j = -BALL_RADIUS;j<BALL_RADIUS;j++){
-            if (square(i)+square(j)<square(BALL_RADIUS)) *(frame->arr + (st.ball_y + j)*SCR_X + st.ball_x + i) ^= 0x00ffffff;
+            if (square(i)+square(j)<square(BALL_RADIUS)) *(frame->arr + (st.ball_y + j)*SCR_X + st.ball_x + i) = 0xffffffff;
         }
     }
 }
@@ -210,6 +210,27 @@ void draw_img(char* img,fb* frame,int x,int y,point dim){
     }
 }
 
+// void save_buffer_standard(const char *filename, void *buffer, size_t size) {
+//     FILE *file = fopen(filename, "wb");
+//     if (file == NULL) {
+//         perror("Failed to open file");
+//         return;
+//     }
+
+//     size_t result = fwrite(buffer, 1, size, file);
+//     if (result != size) {
+//         fprintf(stderr, "Error: Only wrote %zu of %zu bytes\n", result, size);
+//     }
+
+//     fclose(file);
+// }
+
+// void screenshot(fb* frame){
+//     if (keyboard.state[KEY_SPACE]){
+//         save_buffer_standard("./sc.raw", frame->arr, SCR_X*SCR_Y*4);
+//     }
+// }
+
 int main(){
     point dim;
     dim.x = SCR_X;
@@ -302,7 +323,7 @@ int main(){
         force_update();
         //usleep(16000);
         fflush(logfile);
-
+        //screenshot(frame);
         //clsd(frame);
     }
 }

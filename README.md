@@ -23,17 +23,17 @@ Update the path in src/input_event.c to point to the correct device (e.g., /dev/
 The game must be run in a Linux TTY (not inside a terminal emulator like Alacritty or Kitty) and requires root privileges to access the framebuffer and input devices.
 Bash
 
-# Give execution permissions
+### Give execution permissions
 
 ```
 chmod +x build.sh sun.sh
 ```
-# Compile
+### Compile
 
 ```
 ./build.sh
 ```
-# Run (requires root)
+### Run (requires root)
 
 sudo ./sun.sh
 

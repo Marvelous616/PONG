@@ -4,7 +4,7 @@ This is a study/experimental game that uses Linux's legacy frame buffer mode /de
 
 ![Pong Gameplay](screenshots/output1.png)
 
-##Setup
+## Setup
 
 
 ## 1. Screen Configuration

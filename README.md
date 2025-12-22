@@ -29,3 +29,42 @@ chmod +x build.sh sun.sh
 
 # Run (requires root)
 sudo ./sun.sh
+
+## project structure
+
+.
+├── 312x598_hand_dithered_1_bit.data
+├── 468x897_hand_dithered_1_bit.data
+├── 468x897_hand_dithered_1_bit.data.pal
+├── 624x1196_hand_dithered_1_bit.data.pal
+├── 624x1196_hand_dithered.data
+├── build
+│   └── main
+├── build.sh
+├── compile_flags.txt
+├── game_log.csv
+├── include
+│   ├── base_masks.h
+│   ├── config.h
+│   ├── entity.h
+│   ├── gameloop.h
+│   ├── inp_event.h
+│   ├── numbers.h
+│   ├── num.h
+│   ├── pixel.h
+│   ├── point.h
+│   ├── render.h
+│   ├── sprite.h
+│   └── text_renderer.h
+├── LICENSE
+├── README.md
+├── run.sh
+└── src
+    ├── entity.c
+    ├── inp_event.c
+    ├── main.c
+    ├── num.c
+    ├── pixel.c
+    ├── point.c
+    ├── render.c
+    └── sprite.c

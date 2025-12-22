@@ -50,33 +50,39 @@ sudo ./sun.sh
 ├── 624x1196_hand_dithered_1_bit.data.pal
 ├── 624x1196_hand_dithered.data
 ├── build
-│   └── main
+│   └── main
 ├── build.sh
 ├── compile_flags.txt
 ├── game_log.csv
 ├── include
-│   ├── base_masks.h
-│   ├── config.h
-│   ├── entity.h
-│   ├── gameloop.h
-│   ├── inp_event.h
-│   ├── numbers.h
-│   ├── num.h
-│   ├── pixel.h
-│   ├── point.h
-│   ├── render.h
-│   ├── sprite.h
-│   └── text_renderer.h
+│   ├── base_masks.h
+│   ├── config.h
+│   ├── entity.h
+│   ├── gameloop.h
+│   ├── inp_event.h
+│   ├── numbers.h
+│   ├── num.h
+│   ├── pixel.h
+│   ├── point.h
+│   ├── render.h
+│   ├── sprite.h
+│   └── text_renderer.h
 ├── LICENSE
 ├── README.md
 ├── run.sh
+├── screenshots
+│   ├── output1.png
+│   ├── output2.png
+│   ├── output.png
+│   ├── sc.raw
+│   └── screenshot.png
 └── src
-├── entity.c
-├── inp_event.c
-├── main.c
-├── num.c
-├── pixel.c
-├── point.c
-├── render.c
-└── sprite.c
+    ├── entity.c
+    ├── inp_event.c
+    ├── main.c
+    ├── num.c
+    ├── pixel.c
+    ├── point.c
+    ├── render.c
+    └── sprite.c
 ```

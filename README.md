@@ -2,7 +2,7 @@
 
 This is a study/experimental game that uses Linux's legacy frame buffer mode /dev/fb0 for rendering. The rendering engine is entirely CPU-based.
 
-![Pong Gameplay](screenshots/output_opaque.png)
+![Pong Gameplay](./output_opaque.png)
 
 ## Setup
 

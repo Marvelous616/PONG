@@ -4,6 +4,7 @@
 #include "inp_event.h"
 #include <linux/fb.h>
 #include <stdio.h>
+#include <string.h>
 #include <sys/mman.h>
 #include "base_masks.h"
 #include <unistd.h>
@@ -48,7 +49,7 @@ static fb* frame;
 void draw_ball(fb* frame){
     for (int i = -BALL_RADIUS;i<BALL_RADIUS;i++){
         for (int j = -BALL_RADIUS;j<BALL_RADIUS;j++){
-            if (square(i)+square(j)<square(BALL_RADIUS)) *(frame->arr + (st.ball_y + j)*SCR_X + st.ball_x + i) = 0xffffffff;
+            if (square(i)+square(j)<square(BALL_RADIUS)) *(frame->arr + (st.ball_y + j)*SCR_X + st.ball_x + i) ^= 0x00ffffff;
         }
     }
 }
@@ -147,19 +148,6 @@ void draw_px(int x,int y,fb* frame){
     *(frame->arr + SCR_X*y + x) = WHITE;
 }
 
-
-void draw_bounds(fb* frame){
-    for (int i=0;i<SCR_X;i++){
-        for (int j=0;j<BORDER_WIDTH;j++){
-            *(frame->arr + j*SCR_X + i) = WHITE;
-        }
-    }
-    for (int i=0;i<SCR_X;i++){
-        for (int j=SCR_Y - BORDER_WIDTH;j<SCR_Y;j++){
-            *(frame->arr + j*SCR_X + i) = WHITE;
-        }
-    }
-}
 // static int paddle_a_mem[5]={0};
 // enum ball_mapping{
 //     ball_prev_x,
@@ -193,12 +181,6 @@ void paddle_b_ai(){
     st.paddle_b_y = st.ball_y;
 }
 
-void draw_net(fb* frame){
-    for (int i=0;i<SCR_Y;i++){
-        *(frame->arr + i*SCR_X + SCR_X/2) = WHITE;
-    }
-}
-
 extern Mouse mouse;
 extern Keyboard keyboard;
 
@@ -210,26 +192,26 @@ void draw_img(char* img,fb* frame,int x,int y,point dim){
     }
 }
 
-// void save_buffer_standard(const char *filename, void *buffer, size_t size) {
-//     FILE *file = fopen(filename, "wb");
-//     if (file == NULL) {
-//         perror("Failed to open file");
-//         return;
-//     }
+void save_buffer_standard(const char *filename, void *buffer, size_t size) {
+    FILE *file = fopen(filename, "wb");
+    if (file == NULL) {
+        perror("Failed to open file");
+        return;
+    }
 
-//     size_t result = fwrite(buffer, 1, size, file);
-//     if (result != size) {
-//         fprintf(stderr, "Error: Only wrote %zu of %zu bytes\n", result, size);
-//     }
+    size_t result = fwrite(buffer, 1, size, file);
+    if (result != size) {
+        fprintf(stderr, "Error: Only wrote %zu of %zu bytes\n", result, size);
+    }
 
-//     fclose(file);
-// }
+    fclose(file);
+}
 
-// void screenshot(fb* frame){
-//     if (keyboard.state[KEY_SPACE]){
-//         save_buffer_standard("./sc.raw", frame->arr, SCR_X*SCR_Y*4);
-//     }
-// }
+void screenshot(fb* frame){
+    if (keyboard.state[KEY_SPACE]){
+        save_buffer_standard("./sc.raw", frame->arr, SCR_X*SCR_Y*4);
+    }
+}
 
 int main(){
     point dim;
@@ -298,10 +280,12 @@ int main(){
 //         force_update();
 //     }
     // ----------- game - loop ----------
+    uint32_t* bg = malloc(sizeof(uint32_t)*SCR_X*SCR_Y);
+    draw_bg(bg,dim);
     while(1){
-        clsd(frame);
-        draw_bounds(frame);
-        draw_net(frame);
+        //clsd(frame);
+        //draw_bg(frame->arr,dim);
+        memcpy(frame->arr, bg, sizeof(uint32_t)*SCR_X*SCR_Y);
         update_kbd();
         move_paddles();
         //paddle_a_ai();
@@ -320,10 +304,10 @@ int main(){
         draw_num_string_centered(SCR_X-SCR_X/4,BORDER_WIDTH + padding_y,sc.b,frame,score_font);
         draw_ball(frame);
         draw(frame,screen_buff);
+        screenshot(frame);
         force_update();
         //usleep(16000);
         fflush(logfile);
-        //screenshot(frame);
         //clsd(frame);
     }
 }

@@ -68,3 +68,30 @@ float inv_slope(point a, point b){
 // //fill later
 //     return;    
 // }
+
+void draw_bounds(uint32_t* arr, point dim){
+    for (int i=0;i<SCR_X;i++){
+        for (int j=0;j<BORDER_WIDTH;j++){
+            *(arr + j*SCR_X + i) = WHITE;
+        }
+    }
+    for (int i=0;i<SCR_X;i++){
+        for (int j=SCR_Y - BORDER_WIDTH;j<SCR_Y;j++){
+            *(arr + j*SCR_X + i) = WHITE;
+        }
+    }
+}
+
+void draw_net(uint32_t* arr, point dim){
+    for (int i=0;i<SCR_Y;i++){
+        *(arr + i*SCR_X + SCR_X/2) = WHITE;
+    }
+}
+
+void draw_bg(uint32_t* arr,point dim){
+    for (int i=0;i<SCR_X*SCR_Y;i++){
+        arr[i] = BLACK;
+    }
+    draw_bounds(arr,dim);
+    draw_net(arr,dim);
+}

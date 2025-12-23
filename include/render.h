@@ -35,3 +35,9 @@ void draw(fb* f,uint32_t* screen);
 float slope(point a, point b);
 float inv_slope(point a, point b);
 void draw_line(point a, point b, fb* f, pixel color);
+
+void draw_bounds(uint32_t* frame,point dim);
+
+void draw_net(uint32_t* frame, point dim);
+
+void draw_bg(uint32_t* frame, point dim);
